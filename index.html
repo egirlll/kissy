@@ -588,8 +588,8 @@
                 input.value = '';
                 input.classList.add('error');
                 document.getElementById('feedback').innerHTML = '<span class="error-msg">✗ Restart this rep</span>';
-                taskState.currentErrors++; // Increment error count
-                document.getElementById('errors').textContent = taskState.currentErrors;
+                taskState.totalErrors++; // Increment total errors directly
+                document.getElementById('errors').textContent = taskState.totalErrors;
                 setTimeout(() => {
                     input.classList.remove('error');
                     document.getElementById('feedback').innerHTML = '';
@@ -628,7 +628,6 @@
                 return;
             }
 
-            taskState.totalErrors += taskState.currentErrors;
             taskState.totalCharsTyped += taskState.text.length;
             taskState.currentRep++;
 
