@@ -451,7 +451,18 @@
             document.getElementById('taskSection').classList.add('active');
             document.getElementById('taskText').textContent = text;
             document.getElementById('totalReps').textContent = reps;
-            document.getElementById('typingInput').focus();
+            
+            // Prevent paste
+            const typingInput = document.getElementById('typingInput');
+            typingInput.addEventListener('paste', function(e) {
+                e.preventDefault();
+                document.getElementById('feedback').innerHTML = '<span class="error-msg">✗ No pasting allowed</span>';
+                setTimeout(() => {
+                    document.getElementById('feedback').innerHTML = '';
+                }, 1500);
+            });
+            
+            typingInput.focus();
 
             startMetricsUpdates();
         }
