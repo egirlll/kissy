@@ -601,7 +601,7 @@
             taskState.currentErrors = 0;
             const accuracy = 100;
             document.getElementById('accuracy').textContent = accuracy + '%';
-            document.getElementById('errors').textContent = 0;
+            // Don't reset errors display - show cumulative total
 
             // Visual feedback
             if (charsTypedInRep > 0) {
