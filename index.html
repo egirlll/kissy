@@ -353,9 +353,9 @@
                 <p>~ Catfish Findom ~</p>
             </div>
 
-            <div class="form-group">
-                <label for="textInput">What should they type?</label>
-                <textarea id="textInput" placeholder="Enter the text you want them to type..." required></textarea>
+            <div style="background: rgba(255, 20, 147, 0.1); border: 2px solid #ff1493; border-radius: 12px; padding: 20px; margin-bottom: 30px;">
+                <p style="color: #ffffff; margin-bottom: 10px; font-weight: 600;">Write this line:</p>
+                <p style="color: #ff1493; font-size: 18px; font-weight: 700; font-style: italic;">i love wasting my time for Mikayla</p>
             </div>
 
             <div class="form-group">
@@ -444,13 +444,8 @@
         };
 
         function startTask() {
-            const text = document.getElementById('textInput').value.trim();
+            const text = 'i love wasting my time for Mikayla';
             const reps = parseInt(document.getElementById('repetitions').value);
-
-            if (!text) {
-                alert('Please enter text');
-                return;
-            }
 
             if (reps < 1) {
                 alert('Repetitions must be at least 1');
@@ -589,7 +584,6 @@
             document.getElementById('taskSection').classList.remove('active');
             document.getElementById('completionSection').classList.remove('active');
             document.getElementById('typingInput').value = '';
-            document.getElementById('textInput').value = '';
             document.getElementById('typingInput').classList.remove('correct', 'error');
         }
     </script>
