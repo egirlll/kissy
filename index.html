@@ -584,13 +584,12 @@
             }
 
             if (hasError) {
-                // Clear input on any mistake - these NEVER count as errors
+                // Clear input on any mistake - count it as an error
                 input.value = '';
                 input.classList.add('error');
                 document.getElementById('feedback').innerHTML = '<span class="error-msg">✗ Restart this rep</span>';
-                document.getElementById('accuracy').textContent = '100%';
-                document.getElementById('errors').textContent = '0';
-                taskState.currentErrors = 0; // Reset errors for this rep
+                taskState.currentErrors++; // Increment error count
+                document.getElementById('errors').textContent = taskState.currentErrors;
                 setTimeout(() => {
                     input.classList.remove('error');
                     document.getElementById('feedback').innerHTML = '';
@@ -649,6 +648,7 @@
             document.getElementById('feedback').innerHTML = '';
             document.getElementById('currentRep').textContent = taskState.currentRep;
             document.getElementById('errors').textContent = '0';
+            taskState.currentErrors = 0; // Reset errors for next rep
             input.focus();
         }
 
