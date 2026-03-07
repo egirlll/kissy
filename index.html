@@ -647,8 +647,8 @@
             input.classList.remove('correct', 'error');
             document.getElementById('feedback').innerHTML = '';
             document.getElementById('currentRep').textContent = taskState.currentRep;
-            document.getElementById('errors').textContent = '0';
-            taskState.currentErrors = 0; // Reset errors for next rep
+            document.getElementById('errors').textContent = taskState.totalErrors; // Show cumulative errors
+            taskState.currentErrors = 0; // Reset rep-specific error counter
             input.focus();
         }
 
