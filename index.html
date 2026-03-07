@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write For Me ~ Catfish Findom</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(30, 30, 50, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid #ff1493;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #ff1493;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #ff1493;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: rgba(255, 20, 147, 0.1);
+            border-color: #ff69b4;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group input[type="number"] {
+            max-width: 150px;
+        }
+
+        .btn-start {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn-start:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Task Section */
+        .task-section {
+            display: none;
+        }
+
+        .task-section.active {
+            display: block;
+        }
+
+        .task-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .repetition-counter {
+            color: #ff1493;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .task-text {
+            background: rgba(255, 20, 147, 0.1);
+            border: 2px solid #ff1493;
+            border-radius: 12px;
+            padding: 20px;
+            color: #ffffff;
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-wrap: break-word;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .metric {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #ff1493;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff1493;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #aaa;
+            font-weight: 600;
+        }
+
+        .typing-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #ff1493;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .typing-input:focus {
+            outline: none;
+            background: rgba(255, 20, 147, 0.1);
+            border-color: #ff69b4;
+        }
+
+        .typing-input.error {
+            border-color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+        }
+
+        .typing-input.correct {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .feedback {
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 30px;
+            font-weight: 600;
+        }
+
+        .feedback.error-msg {
+            color: #ff4444;
+        }
+
+        .feedback.success-msg {
+            color: #00ff88;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .btn-submit.show {
+            display: block;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        /* Completion Section */
+        .completion-section {
+            display: none;
+            text-align: center;
+        }
+
+        .completion-section.active {
+            display: block;
+        }
+
+        .completion-message {
+            color: #ff1493;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: pulse 0.6s ease;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .final-stats {
+            background: rgba(255, 20, 147, 0.1);
+            border: 2px solid #ff1493;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .stat-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .stat-label {
+            font-weight: 600;
+        }
+
+        .stat-value {
+            color: #ff1493;
+            font-weight: 700;
+        }
+
+        .btn-reset {
+            width: 100%;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 2px solid #ff1493;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            background: rgba(255, 20, 147, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 15px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .metric-value {
+                font-size: 20px;
+            }
+
+            .completion-message {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Setup Section -->
+        <div id="setupSection" class="form-section">
+            <div class="header">
+                <h1>Write For Me</h1>
+                <p>~ Catfish Findom ~</p>
+            </div>
+
+            <div class="form-group">
+                <label for="textInput">What should they type?</label>
+                <textarea id="textInput" placeholder="Enter the text you want them to type..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="repetitions">How many times?</label>
+                <input type="number" id="repetitions" value="10" min="1" max="100" required>
+            </div>
+
+            <button class="btn-start" onclick="startTask()">Start Task</button>
+        </div>
+
+        <!-- Task Section -->
+        <div id="taskSection" class="task-section">
+            <div class="task-header">
+                <div class="repetition-counter">
+                    Rep <span id="currentRep">1</span> / <span id="totalReps">10</span>
+                </div>
+                <div class="task-text" id="taskText">Loading...</div>
+            </div>
+
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-value" id="progress">0%</div>
+                    <div class="metric-label">Progress</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" id="cpm">0</div>
+                    <div class="metric-label">CPM</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" id="accuracy">100%</div>
+                    <div class="metric-label">Accuracy</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" id="errors">0</div>
+                    <div class="metric-label">Errors</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" id="time">0s</div>
+                    <div class="metric-label">Time</div>
+                </div>
+            </div>
+
+            <input type="text" id="typingInput" class="typing-input" placeholder="Type here..." autocomplete="off" spellcheck="false">
+
+            <div class="feedback" id="feedback"></div>
+
+            <button class="btn-submit" id="submitBtn" onclick="submitRep()">Next Rep →</button>
+        </div>
+
+        <!-- Completion Section -->
+        <div id="completionSection" class="completion-section">
+            <div class="completion-message" id="completionMsg">Well done!! Such a good boy~ 💕</div>
+
+            <div class="final-stats">
+                <div class="stat-row">
+                    <span class="stat-label">Total Time:</span>
+                    <span class="stat-value" id="finalTime">0s</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Average CPM:</span>
+                    <span class="stat-value" id="finalCPM">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Total Errors:</span>
+                    <span class="stat-value" id="finalErrors">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Final Accuracy:</span>
+                    <span class="stat-value" id="finalAccuracy">100%</span>
+                </div>
+            </div>
+
+            <button class="btn-reset" onclick="resetTask()">Do It Again</button>
+        </div>
+    </div>
+
+    <script>
+        let taskState = {
+            text: '',
+            repetitions: 0,
+            currentRep: 0,
+            startTime: 0,
+            totalErrors: 0,
+            totalCharsTyped: 0,
+            currentErrors: 0
+        };
+
+        function startTask() {
+            const text = document.getElementById('textInput').value.trim();
+            const reps = parseInt(document.getElementById('repetitions').value);
+
+            if (!text) {
+                alert('Please enter text');
+                return;
+            }
+
+            if (reps < 1) {
+                alert('Repetitions must be at least 1');
+                return;
+            }
+
+            taskState = {
+                text: text,
+                repetitions: reps,
+                currentRep: 1,
+                startTime: Date.now(),
+                totalErrors: 0,
+                totalCharsTyped: 0,
+                currentErrors: 0
+            };
+
+            document.getElementById('setupSection').style.display = 'none';
+            document.getElementById('taskSection').classList.add('active');
+            document.getElementById('taskText').textContent = text;
+            document.getElementById('totalReps').textContent = reps;
+            document.getElementById('typingInput').focus();
+
+            startMetricsUpdates();
+        }
+
+        function startMetricsUpdates() {
+            const metricsInterval = setInterval(() => {
+                if (!document.getElementById('taskSection').classList.contains('active')) {
+                    clearInterval(metricsInterval);
+                    return;
+                }
+
+                const elapsed = Math.floor((Date.now() - taskState.startTime) / 1000);
+                const minutes = elapsed / 60;
+                const cpm = minutes > 0 ? Math.round(taskState.totalCharsTyped / minutes) : 0;
+
+                document.getElementById('time').textContent = elapsed + 's';
+                document.getElementById('cpm').textContent = cpm;
+            }, 100);
+
+            const typingInput = document.getElementById('typingInput');
+            typingInput.addEventListener('input', updateMetrics);
+        }
+
+        function updateMetrics() {
+            const input = document.getElementById('typingInput');
+            const typed = input.value;
+            const expectedLength = taskState.text.length * taskState.currentRep;
+            const charsTypedInRep = typed.length;
+
+            // Progress
+            const progress = Math.round((charsTypedInRep / taskState.text.length) * 100);
+            document.getElementById('progress').textContent = Math.min(progress, 100) + '%';
+
+            // Accuracy & Errors
+            let errors = 0;
+            for (let i = 0; i < charsTypedInRep; i++) {
+                if (typed[i] !== taskState.text[i]) {
+                    errors++;
+                }
+            }
+
+            taskState.currentErrors = errors;
+            const accuracy = charsTypedInRep > 0 ? Math.round(((charsTypedInRep - errors) / charsTypedInRep) * 100) : 100;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            document.getElementById('errors').textContent = errors;
+
+            // Visual feedback
+            if (charsTypedInRep > 0) {
+                if (typed === taskState.text.substring(0, charsTypedInRep)) {
+                    input.classList.remove('error');
+                    input.classList.add('correct');
+                } else {
+                    input.classList.remove('correct');
+                    input.classList.add('error');
+                }
+            } else {
+                input.classList.remove('correct', 'error');
+            }
+
+            // Show submit button when complete
+            if (typed === taskState.text) {
+                document.getElementById('submitBtn').classList.add('show');
+                document.getElementById('feedback').innerHTML = '<span class="success-msg">✓ Perfect! Ready to submit.</span>';
+            } else {
+                document.getElementById('submitBtn').classList.remove('show');
+                document.getElementById('feedback').innerHTML = '';
+            }
+        }
+
+        function submitRep() {
+            const input = document.getElementById('typingInput');
+
+            if (input.value !== taskState.text) {
+                document.getElementById('feedback').innerHTML = '<span class="error-msg">Text doesn\'t match exactly</span>';
+                return;
+            }
+
+            taskState.totalErrors += taskState.currentErrors;
+            taskState.totalCharsTyped += taskState.text.length;
+            taskState.currentRep++;
+
+            if (taskState.currentRep > taskState.repetitions) {
+                showCompletion();
+                return;
+            }
+
+            // Reset for next rep
+            input.value = '';
+            input.classList.remove('correct', 'error');
+            document.getElementById('feedback').innerHTML = '';
+            document.getElementById('submitBtn').classList.remove('show');
+            document.getElementById('currentRep').textContent = taskState.currentRep;
+            document.getElementById('progress').textContent = '0%';
+            document.getElementById('errors').textContent = '0';
+            input.focus();
+        }
+
+        function showCompletion() {
+            document.getElementById('taskSection').classList.remove('active');
+            document.getElementById('completionSection').classList.add('active');
+
+            const totalTime = Math.floor((Date.now() - taskState.startTime) / 1000);
+            const minutes = totalTime / 60;
+            const avgCPM = minutes > 0 ? Math.round(taskState.totalCharsTyped / minutes) : 0;
+            const finalAccuracy = taskState.totalCharsTyped > 0 ? Math.round(((taskState.totalCharsTyped - taskState.totalErrors) / taskState.totalCharsTyped) * 100) : 100;
+
+            document.getElementById('finalTime').textContent = totalTime + 's';
+            document.getElementById('finalCPM').textContent = avgCPM;
+            document.getElementById('finalErrors').textContent = taskState.totalErrors;
+            document.getElementById('finalAccuracy').textContent = finalAccuracy + '%';
+        }
+
+        function resetTask() {
+            document.getElementById('setupSection').style.display = 'block';
+            document.getElementById('taskSection').classList.remove('active');
+            document.getElementById('completionSection').classList.remove('active');
+            document.getElementById('typingInput').value = '';
+            document.getElementById('textInput').value = '';
+            document.getElementById('typingInput').classList.remove('correct', 'error');
+        }
+    </script>
+</body>
+</html>
