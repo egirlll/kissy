@@ -485,32 +485,44 @@
             const expectedLength = taskState.text.length * taskState.currentRep;
             const charsTypedInRep = typed.length;
 
+            // Check for errors - if any error, clear and restart
+            let hasError = false;
+            for (let i = 0; i < charsTypedInRep; i++) {
+                if (typed[i] !== taskState.text[i]) {
+                    hasError = true;
+                    break;
+                }
+            }
+
+            if (hasError) {
+                // Clear input on any mistake
+                input.value = '';
+                input.classList.add('error');
+                document.getElementById('feedback').innerHTML = '<span class="error-msg">✗ Restart this rep</span>';
+                document.getElementById('progress').textContent = '0%';
+                document.getElementById('accuracy').textContent = '100%';
+                document.getElementById('errors').textContent = '0';
+                setTimeout(() => {
+                    input.classList.remove('error');
+                    document.getElementById('feedback').innerHTML = '';
+                }, 1500);
+                return;
+            }
+
             // Progress
             const progress = Math.round((charsTypedInRep / taskState.text.length) * 100);
             document.getElementById('progress').textContent = Math.min(progress, 100) + '%';
 
-            // Accuracy & Errors
-            let errors = 0;
-            for (let i = 0; i < charsTypedInRep; i++) {
-                if (typed[i] !== taskState.text[i]) {
-                    errors++;
-                }
-            }
-
-            taskState.currentErrors = errors;
-            const accuracy = charsTypedInRep > 0 ? Math.round(((charsTypedInRep - errors) / charsTypedInRep) * 100) : 100;
+            // Accuracy & Errors (only track for successful typing)
+            taskState.currentErrors = 0;
+            const accuracy = 100;
             document.getElementById('accuracy').textContent = accuracy + '%';
-            document.getElementById('errors').textContent = errors;
+            document.getElementById('errors').textContent = 0;
 
             // Visual feedback
             if (charsTypedInRep > 0) {
-                if (typed === taskState.text.substring(0, charsTypedInRep)) {
-                    input.classList.remove('error');
-                    input.classList.add('correct');
-                } else {
-                    input.classList.remove('correct');
-                    input.classList.add('error');
-                }
+                input.classList.remove('error');
+                input.classList.add('correct');
             } else {
                 input.classList.remove('correct', 'error');
             }
