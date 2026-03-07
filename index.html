@@ -321,6 +321,67 @@
             transform: translateY(-2px);
         }
 
+        /* Milestone Popup */
+        .milestone-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .milestone-overlay.show {
+            display: flex;
+        }
+
+        .milestone-popup {
+            background: rgba(30, 30, 50, 0.95);
+            border: 3px solid #ff1493;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(255, 20, 147, 0.4);
+            animation: popupSlide 0.4s ease;
+        }
+
+        @keyframes popupSlide {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .milestone-image {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ff1493;
+        }
+
+        .milestone-message {
+            color: #ff1493;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .milestone-subtext {
+            color: #aaa;
+            font-size: 14px;
+        }
+
         @media (max-width: 480px) {
             .container {
                 padding: 25px 15px;
@@ -340,6 +401,14 @@
 
             .completion-message {
                 font-size: 22px;
+            }
+
+            .milestone-popup {
+                padding: 20px;
+            }
+
+            .milestone-message {
+                font-size: 18px;
             }
         }
     </style>
@@ -423,6 +492,15 @@
             </div>
 
             <button class="btn-reset" onclick="resetTask()">Do It Again</button>
+        </div>
+
+        <!-- Milestone 50 Popup -->
+        <div id="milestoneOverlay" class="milestone-overlay">
+            <div class="milestone-popup">
+                <img src="milestone50.jpg" alt="milestone" class="milestone-image">
+                <div class="milestone-message">You're doing such a good job!! Keep goinggg 💕</div>
+                <div class="milestone-subtext">Halfway there!</div>
+            </div>
         </div>
     </div>
 
@@ -554,6 +632,11 @@
             taskState.totalCharsTyped += taskState.text.length;
             taskState.currentRep++;
 
+            // Check for milestone 50
+            if (taskState.currentRep === 50) {
+                showMilestone50();
+            }
+
             if (taskState.currentRep > taskState.repetitions) {
                 showCompletion();
                 return;
@@ -566,6 +649,15 @@
             document.getElementById('currentRep').textContent = taskState.currentRep;
             document.getElementById('errors').textContent = '0';
             input.focus();
+        }
+
+        function showMilestone50() {
+            const overlay = document.getElementById('milestoneOverlay');
+            overlay.classList.add('show');
+
+            setTimeout(() => {
+                overlay.classList.remove('show');
+            }, 5000);
         }
 
         function showCompletion() {
@@ -587,6 +679,7 @@
             document.getElementById('setupSection').style.display = 'block';
             document.getElementById('taskSection').classList.remove('active');
             document.getElementById('completionSection').classList.remove('active');
+            document.getElementById('milestoneOverlay').classList.remove('show');
             document.getElementById('typingInput').value = '';
             document.getElementById('typingInput').classList.remove('correct', 'error');
         }
