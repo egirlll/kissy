@@ -397,7 +397,6 @@
 
             <div class="feedback" id="feedback"></div>
 
-            <button class="btn-submit" id="submitBtn" onclick="submitRep()">Next Rep →</button>
         </div>
 
         <!-- Completion Section -->
@@ -516,12 +515,11 @@
                 input.classList.remove('correct', 'error');
             }
 
-            // Show submit button when complete
+            // Auto-advance when complete
             if (typed === taskState.text) {
-                document.getElementById('submitBtn').classList.add('show');
-                document.getElementById('feedback').innerHTML = '<span class="success-msg">✓ Perfect! Ready to submit.</span>';
+                document.getElementById('feedback').innerHTML = '<span class="success-msg">✓ Perfect!</span>';
+                setTimeout(submitRep, 300);
             } else {
-                document.getElementById('submitBtn').classList.remove('show');
                 document.getElementById('feedback').innerHTML = '';
             }
         }
