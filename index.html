@@ -584,12 +584,13 @@
             }
 
             if (hasError) {
-                // Clear input on any mistake
+                // Clear input on any mistake - these NEVER count as errors
                 input.value = '';
                 input.classList.add('error');
                 document.getElementById('feedback').innerHTML = '<span class="error-msg">✗ Restart this rep</span>';
                 document.getElementById('accuracy').textContent = '100%';
                 document.getElementById('errors').textContent = '0';
+                taskState.currentErrors = 0; // Reset errors for this rep
                 setTimeout(() => {
                     input.classList.remove('error');
                     document.getElementById('feedback').innerHTML = '';
@@ -597,7 +598,7 @@
                 return;
             }
 
-            // Accuracy & Errors (only track for successful typing)
+            // Accuracy & Errors (perfect typing - no errors)
             taskState.currentErrors = 0;
             const accuracy = 100;
             document.getElementById('accuracy').textContent = accuracy + '%';
