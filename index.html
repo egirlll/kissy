@@ -548,9 +548,7 @@
             input.value = '';
             input.classList.remove('correct', 'error');
             document.getElementById('feedback').innerHTML = '';
-            document.getElementById('submitBtn').classList.remove('show');
             document.getElementById('currentRep').textContent = taskState.currentRep;
-            document.getElementById('progress').textContent = '0%';
             document.getElementById('errors').textContent = '0';
             input.focus();
         }
