@@ -354,13 +354,8 @@
             </div>
 
             <div style="background: rgba(255, 20, 147, 0.1); border: 2px solid #ff1493; border-radius: 12px; padding: 20px; margin-bottom: 30px;">
-                <p style="color: #ffffff; margin-bottom: 10px; font-weight: 600;">Write this line:</p>
+                <p style="color: #ffffff; margin-bottom: 15px; font-weight: 600;">Write this line 99 times for a reward:</p>
                 <p style="color: #ff1493; font-size: 18px; font-weight: 700; font-style: italic;">i love wasting my time for Mikayla</p>
-            </div>
-
-            <div class="form-group">
-                <label for="repetitions">How many times?</label>
-                <input type="number" id="repetitions" value="10" min="1" max="100" required>
             </div>
 
             <button class="btn-start" onclick="startTask()">Start Task</button>
@@ -407,7 +402,7 @@
 
         <!-- Completion Section -->
         <div id="completionSection" class="completion-section">
-            <div class="completion-message" id="completionMsg">Well done!! Such a good boy~ 💕</div>
+            <div class="completion-message" id="completionMsg">You earned your reward!! Such a good boy~ 💕</div>
 
             <div class="final-stats">
                 <div class="stat-row">
@@ -445,12 +440,7 @@
 
         function startTask() {
             const text = 'i love wasting my time for Mikayla';
-            const reps = parseInt(document.getElementById('repetitions').value);
-
-            if (reps < 1) {
-                alert('Repetitions must be at least 1');
-                return;
-            }
+            const reps = 99;
 
             taskState = {
                 text: text,
